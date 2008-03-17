@@ -1,0 +1,8 @@
+#slashdotter-modalert-panel[hidden="true"] {
+	display: none;
+}
+
+#slashdotter-modalert {
+	list-style-image: url(chrome://slashdotter/skin/tiny-icon.png);
+	cursor: pointer;
+}

@@ -1,0 +1,98 @@
+a {
+	color: rgb(229, 160, 196);
+}
+
+div#topnav {
+	background: rgb(229, 160, 196) url(chrome://slashdotter/skin/ponies/topnav-bg.png) repeat-x left top;
+}
+
+div#topnav div#logo h1 a {
+	background: url(chrome://slashdotter/skin/ponies/logo.png) no-repeat left top;
+}
+
+div.article div.title,
+div.generaltitle div.title,
+div.commentTop div.title {
+	background: rgb(229, 160, 196) url(chrome://slashdotter/skin/ponies/article-title-bg.png) repeat-x left top;
+}
+
+div.article div.title h3,
+div.generaltitle div.title h3,
+div.commentTop div.title h4 {
+	background: url(chrome://slashdotter/skin/ponies/article-title-left.png) no-repeat left top;
+}
+
+div#links div.block div.content ul li a, div#links div.block div.content ul li a:visited {
+	color: #000;
+}
+
+div#links div.block div.content ul li a:hover {
+	background: rgb(229, 160, 196) url(//images.slashdot.org/link-arrow.gif) no-repeat right center;
+	color: #fff;
+}
+
+.data_head, .barColor, .tb_col {
+	background: rgb(229, 160, 196);
+}
+
+.comment > .oneline .commentTop .title h4 a {
+	color: rgb(229, 160, 196);
+}
+
+div.commentSub {
+	border-bottom: 1px solid rgb(229, 160, 196);
+}
+
+div.article div.title span,
+div.article div.title span a {
+	color: #fff;
+}
+
+div#user-section div.content{
+	background: rgb(255, 224, 240);
+}
+
+div#user-section div.content a {
+	color: #000;
+}
+
+div#slashboxes div.block div.content {
+	background: rgb(255, 224, 240);
+}
+
+div#slashboxes div.block div.content a, div#slashboxes div.block div.content a:visited  {
+	color: #000;
+}
+
+body {
+	border-bottom-color: rgb(255, 224, 240);
+}
+
+div#links div.block.collapsed div.title h4 {
+	background-image: url(chrome://slashdotter/skin/ponies/block-arrow-collapsed.gif);
+}
+
+div#links div.block div.title h4, div#links div.block.expanded div.title h4 {
+	background-image: url(chrome://slashdotter/skin/ponies/block-arrow-expanded.gif);
+}  
+
+div.details, div#usermenu {
+	background-color: rgb(255, 224, 240);
+	background-image: none;
+}
+
+div#usermenu * {
+	background-image: none;
+}
+
+div.details a, div.details a:visited {
+	color: rgb(102,51,85);
+}
+
+div.article a, div.article a:visited ,
+div.article div.body a, div.article div.body a:visited ,
+div.tags a, div.tags a:visited ,
+div.storylinks a, div.storylinks a:visited {
+	color: rgb(102,51,85);
+	font-weight: bold;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://slashdotter/skin/style.css" type="text/css"?> 
+<overlay id="slashdotterOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://slashdotter/content/overlay.js" />
+	<script type="application/x-javascript">
+		<![CDATA[
+
+			window.addEventListener("load", function () { SLASHDOTTER.onload(); }, false);
+			
+			var appcontent = document.getElementById("appcontent");
+			
+			if (appcontent) {
+				appcontent.addEventListener("DOMContentLoaded", SLASHDOTTER.DOMContentLoaded, true);
+			}
+
+		]]>
+	</script>
+	<statusbar id="status-bar">
+		<statusbarpanel id="slashdotter-modalert-panel" hidden="true">
+			<image id="slashdotter-modalert" tooltiptext="You have moderator points." onclick="content.document.location.href = 'http://slashdot.org/';" />
+		</statusbarpanel> 
+	</statusbar>
+</overlay>

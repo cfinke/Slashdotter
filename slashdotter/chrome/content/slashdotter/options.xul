@@ -1,0 +1,612 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<dialog
+	id="slashdotter-options"
+	title="Slashdotter - Options"
+	onload="getPrefs();"
+	ondialogaccept="setPrefs();"
+	style="width: 40em;"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<vbox flex="1">
+		<tabbox flex="1">
+			<tabs flex="1">
+				<tab flex="1" label="General" orient="vertical"/>
+				<tab flex="1" label="Style" orient="vertical"/>	
+				<tab flex="1" label="Advanced" orient="vertical"/>	
+			</tabs>
+			<tabpanels>
+				<tabpanel id="cacheLinks" orient="vertical">
+					<groupbox>
+						<caption label="Cache Links" />
+						<tooltip id="tt_gc" onpopupshowing="this.height = this.popupBoxObject.height;">
+							<description style="width: 30em;">Show Google cache links after links in the Slashdot topic description.</description>
+						</tooltip>
+						<tooltip id="tt_md" onpopupshowing="this.height = this.popupBoxObject.height;">
+							<description style="width: 30em;">Show Mirrordot links after links in the Slashdot topic description.</description>
+						</tooltip>
+						<tooltip id="tt_cc" onpopupshowing="this.height = this.popupBoxObject.height;">
+							<description style="width: 30em;">Show Coral Cache links after links in the Slashdot topic description.</description>
+						</tooltip>
+						<vbox>
+							<hbox>
+								<checkbox id="pref_cc" label="Show Coral Cache links" tooltip="tt_cc"/>
+								<spacer/>
+							</hbox>
+							
+							<hbox>
+								<checkbox id="pref_md" label="Show Mirrordot links" tooltip="tt_md"/>
+								<spacer/>
+							</hbox>
+				
+							<hbox>
+								<checkbox id="pref_gc" label="Show Google cache links" tooltip="tt_gc"/>
+								<spacer/>
+							</hbox>
+						</vbox>
+					</groupbox>
+					<groupbox>
+						<caption label="Quick Reply" />
+						<tooltip id="tt_qr" onpopupshowing="this.height = this.popupBoxObject.height;">
+							<description style="width: 30em;">Enable Quick Reply.  This adds a context-menu option when you select text in a Slashdot comment that allows you to reply to the selected comment and auto-quotes the selected text.</description>
+						</tooltip>
+						<tooltip id="tt_qrnt" onpopupshowing="this.height = this.popupBoxObject.height;">
+							<description style="width: 30em;">Always open quick reply in new tab.</description>
+						</tooltip>
+						<tooltip id="tt_rf" onpopupshowing="this.height = this.popupBoxObject.height;">
+							<description style="width: 30em;">This printf-type format determines how your reply will be formatted when using Quick Reply.</description>
+						</tooltip>
+						<vbox flex="1">
+							<hbox>
+								<checkbox id="pref_qr" label="Enable Quick Reply" tooltip="tt_qr" />
+								<spacer/>
+							</hbox>
+							<hbox>
+								<checkbox id="pref_qrnt" label="Always open quick reply in new tab" tooltip="tt_qrnt" />
+								<spacer/>
+							</hbox>
+							<groupbox>
+								<caption label="Format (Use %s in place of quoted text)" />
+								<textbox flex="1" size="40" id="pref_rf" label="Quick Reply Format" tooltip="tt_rf" />
+							</groupbox>
+						</vbox>
+					</groupbox>
+					<groupbox>
+						<caption label="Comments" />
+						<tooltip id="tt_ct" onpopupshowing="this.height = this.popupBoxObject.height;">
+							<description style="width: 30em;">Enable Comment Toggles.  This adds a "Hide Replies/Show Replies" link at the bottom of each comment that has replies showing, allowing you to quickly toggle open/closed a set of replies to a comment.</description>
+						</tooltip>
+						<tooltip id="tt_ar" onpopupshowing="this.height = this.popupBoxObject.height;">
+							<description style="width: 30em;">When clicking on "X Replies below your threshold" links, have the replies appear in the page without reloading.</description>
+						</tooltip>
+						<tooltip id="tt_pl" onpopupshowing="this.height = this.popupBoxObject.height;">
+							<description style="width: 30em;">Each comment's "Parent" link links to the parent comment on the current page, rather than a separate page for the parent comment and its replies.</description>
+						</tooltip>
+						<tooltip id="tt_aroc" onpopupshowing="this.height = this.popupBoxObject.height;">
+							<description style="width: 30em;">When clicking on "Read the rest of this comment..." links, have the full comment load in place on the page, without loading a new page.</description>
+						</tooltip>
+						<vbox>
+							<hbox>
+								<checkbox id="pref_ct" label="Enable Comment Toggles" tooltip="tt_ct"/>
+								<spacer/>
+							</hbox>
+					
+							<hbox>
+								<checkbox id="pref_ar" label="AJAX Replies" tooltip="tt_ar"/>
+								<spacer/>
+							</hbox>
+							
+							<hbox>
+								<checkbox id="pref_aroc" label="AJAX Rest Of Comment Links" tooltip="tt_aroc"/>
+								<spacer/>
+							</hbox>
+							
+							<hbox>
+								<checkbox id="pref_pl" label="Quick Parent Links" tooltip="tt_pl"/>
+								<spacer/>
+							</hbox>
+						</vbox>
+					</groupbox>
+				</tabpanel>
+				<tabpanel id="styleOptions">
+					<tooltip id="tt_ss" onpopupshowing="this.height = this.popupBoxObject.height;">
+						<description style="width: 30em;">You can choose to have all Slashdot pages rendered with the same style, which you can choose from one of Slashdot's sections.</description>
+					</tooltip>
+					<tooltip id="tt_ss" onpopupshowing="this.height = this.popupBoxObject.height;">
+						<description style="width: 30em;">You can choose to have individual sections rendered with a separate style.</description>
+					</tooltip>
+					<vbox flex="1">
+						<hbox>
+							<label value="Default style: " control="pref_ss" />
+							<menulist id="pref_ss" label="Style" tooltip="tt_ss" flex="1">
+								<menupopup>
+									<menuitem label="No change" value="" />
+									<menuitem label="Apple" value="apple" />
+									<menuitem label="AskSlashdot" value="ask" />
+									<menuitem label="Developers" value="developer" />
+									<menuitem label="Games" value="games" />
+									<menuitem label="Hardware" value="hardware" />
+									<menuitem label="IT" value="it" />
+									<menuitem label="Linux" value="linux" />
+									<menuitem label="Politics" value="politics" />
+									<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+									<menuitem label="YRO" value="yro" />
+								</menupopup>
+							</menulist>
+						</hbox>
+						<groupbox>
+							<caption label="Styles" />
+							<grid flex="1">
+								<columns>
+									<column flex="1" />
+									<column flex="2"/>
+									<column flex="1" />
+									<column flex="2"/>
+								</columns>
+								<rows>
+									<row>
+										<label value="Apple" control="pref_style_apple" />
+										<menulist id="pref_style_apple" tooltip="tt_style" flex="1">
+											<menupopup flex="1">
+												<menuitem label="No change" value="" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Main" value="main" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+										<label value="AskSlashdot" control="pref_style_ask" />
+										<menulist id="pref_style_ask" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Main" value="main" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+									</row>
+									<row>
+										<label value="Books" control="pref_style_books" />
+										<menulist id="pref_style_books" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+										<label value="Developers" control="pref_style_developers" />
+										<menulist id="pref_style_developers" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Main" value="main" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+									</row>
+									<row>
+										<label value="Games" control="pref_style_games" />
+										<menulist id="pref_style_games" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Main" value="main" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+										<label value="Hardware" control="pref_style_hardware" />
+										<menulist id="pref_style_hardware" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Main" value="main" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+									</row>
+									<row>
+										<label value="Interviews" control="pref_style_interviews" />
+										<menulist id="pref_style_interviews" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+										<label value="IT" control="pref_style_it" />
+										<menulist id="pref_style_it" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Main" value="main" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+									</row>
+									<row>
+										<label value="Linux" control="pref_style_linux" />
+										<menulist id="pref_style_linux" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Main" value="main" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+										<label value="Main" control="pref_style_main" />
+										<menulist id="pref_style_main" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+									</row>
+									<row>
+										<label value="Politics" control="pref_style_politics" />
+										<menulist id="pref_style_politics" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Main" value="main" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+										<label value="Science" control="pref_style_science" />
+										<menulist id="pref_style_science" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
+									</row>
+									<row>
+										<label value="YRO" control="pref_style_yro" />
+										<menulist id="pref_style_yro" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Main" value="main" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+											</menupopup>
+										</menulist>
+									</row>
+								</rows>
+							</grid>
+						</groupbox>
+						<groupbox>
+							<checkbox id="pref_squareCorners" label="Square (most) rounded corners"/>
+							<checkbox id="pref_commentIndent" label="Increase comment reply indentation"/>
+						</groupbox>
+					</vbox>
+				</tabpanel>
+				<tabpanel id="advancedOptions">
+					<vbox flex="1">
+						<checkbox id="pref_modCheck" label="Let me know when I have moderator points." />
+					</vbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</vbox>
+	<script type="application/x-javascript">
+		<![CDATA[
+			function getPrefs(){
+				var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.slashdotter.");
+
+				try {
+					document.getElementById("pref_cc").checked = prefs.getBoolPref("showCCLinks");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_md").checked = prefs.getBoolPref("showMDLinks");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_gc").checked = prefs.getBoolPref("showGCLinks");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_qr").checked = prefs.getBoolPref("enableQuickReply");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_qrnt").checked = prefs.getBoolPref("replyInNewTab");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_ct").checked = prefs.getBoolPref("enableCommentToggles");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_ar").checked = prefs.getBoolPref("ajaxReplies");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_aroc").checked = prefs.getBoolPref("ajaxRestOfComment");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_pl").checked = prefs.getBoolPref("quickParentLinksEnabled");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_rf").value = prefs.getCharPref("replyFormat");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_ss").value = prefs.getCharPref("stylesheet");
+				} catch (e) {
+				}
+				
+								
+				try {
+					document.getElementById("pref_squareCorners").checked = prefs.getBoolPref("squareCorners");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_commentIndent").checked = prefs.getBoolPref("commentIndent");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_modCheck").checked = prefs.getBoolPref("modCheck");
+				} catch (e) {
+				}
+				
+				try {
+					document.getElementById("pref_style_apple").value = prefs.getCharPref("style.apple");
+					document.getElementById("pref_style_interviews").value = prefs.getCharPref("style.interviews");
+					document.getElementById("pref_style_books").value = prefs.getCharPref("style.books");
+					document.getElementById("pref_style_games").value = prefs.getCharPref("style.games");
+					document.getElementById("pref_style_main").value = prefs.getCharPref("style.main");
+					document.getElementById("pref_style_science").value = prefs.getCharPref("style.science");
+					document.getElementById("pref_style_politics").value = prefs.getCharPref("style.politics");
+					document.getElementById("pref_style_linux").value = prefs.getCharPref("style.linux");
+					document.getElementById("pref_style_it").value = prefs.getCharPref("style.it");
+					document.getElementById("pref_style_hardware").value = prefs.getCharPref("style.hardware");
+					document.getElementById("pref_style_developers").value = prefs.getCharPref("style.developers");
+					document.getElementById("pref_style_ask").value = prefs.getCharPref("style.ask");
+					document.getElementById("pref_style_yro").value = prefs.getCharPref("style.yro");
+				} catch (e) {
+				}
+				
+				
+				document.getElementById('pref_qr').onclick = function () {
+					document.getElementById('pref_qrnt').disabled = !this.checked;
+					document.getElementById('pref_rf').disabled = !this.checked;
+				};
+				
+				document.getElementById('pref_qr').onclick();
+			}
+			
+			function setPrefs(){
+				var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.slashdotter.");
+				
+				try {
+					prefs.setBoolPref("showCCLinks",document.getElementById("pref_cc").checked);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setBoolPref("showMDLinks",document.getElementById("pref_md").checked);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setBoolPref("showGCLinks",document.getElementById("pref_gc").checked);
+				} catch (e) {
+				}
+							
+				try {
+					prefs.setBoolPref("enableQuickReply",document.getElementById("pref_qr").checked);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setBoolPref("replyInNewTab",document.getElementById("pref_qrnt").checked);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setBoolPref("enableCommentToggles",document.getElementById("pref_ct").checked);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setBoolPref("ajaxReplies",document.getElementById("pref_ar").checked);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setBoolPref("ajaxRestOfComment",document.getElementById("pref_aroc").checked);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setBoolPref("quickParentLinksEnabled",document.getElementById("pref_pl").checked);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setCharPref("replyFormat",document.getElementById("pref_rf").value);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setCharPref("stylesheet",document.getElementById("pref_ss").value);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setBoolPref("squareCorners",document.getElementById("pref_squareCorners").checked);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setBoolPref("commentIndent",document.getElementById("pref_commentIndent").checked);
+				} catch (e) {
+				}
+				
+				try {
+					prefs.setBoolPref("modCheck",document.getElementById("pref_modCheck").checked);
+				} catch (e) {
+				}
+				
+				// Separate styles
+				
+				try {
+					prefs.setCharPref("style.apple",document.getElementById("pref_style_apple").value);
+					prefs.setCharPref("style.interviews",document.getElementById("pref_style_interviews").value);
+					prefs.setCharPref("style.books",document.getElementById("pref_style_books").value);
+					prefs.setCharPref("style.games",document.getElementById("pref_style_games").value);
+					prefs.setCharPref("style.main",document.getElementById("pref_style_main").value);
+					prefs.setCharPref("style.science",document.getElementById("pref_style_science").value);
+					prefs.setCharPref("style.politics",document.getElementById("pref_style_politics").value);
+					prefs.setCharPref("style.linux",document.getElementById("pref_style_linux").value);
+					prefs.setCharPref("style.it",document.getElementById("pref_style_it").value);
+					prefs.setCharPref("style.hardware",document.getElementById("pref_style_hardware").value);
+					prefs.setCharPref("style.developers",document.getElementById("pref_style_developers").value);
+					prefs.setCharPref("style.ask",document.getElementById("pref_style_ask").value);
+					prefs.setCharPref("style.yro",document.getElementById("pref_style_yro").value);
+				} catch (e) {
+				}
+			}
+			
+			document.getElementById("pref_ss").onclick = function (){
+				document.getElementById("pref_style_apple").value = "";
+				document.getElementById("pref_style_interviews").value = "";
+				document.getElementById("pref_style_books").value = "";
+				document.getElementById("pref_style_games").value = "";
+				document.getElementById("pref_style_main").value = "";
+				document.getElementById("pref_style_science").value = "";
+				document.getElementById("pref_style_politics").value = "";
+				document.getElementById("pref_style_linux").value = "";
+				document.getElementById("pref_style_it").value = "";
+				document.getElementById("pref_style_hardware").value = "";
+				document.getElementById("pref_style_developers").value = "";
+				document.getElementById("pref_style_ask").value = "";
+				document.getElementById("pref_style_yro").value = "";
+				
+				document.getElementById("pref_style_apple").value = this.value;
+				document.getElementById("pref_style_interviews").value = this.value;
+				document.getElementById("pref_style_books").value = this.value;
+				document.getElementById("pref_style_games").value = this.value;
+				document.getElementById("pref_style_main").value = this.value;
+				document.getElementById("pref_style_science").value = this.value;
+				document.getElementById("pref_style_politics").value = this.value;
+				document.getElementById("pref_style_linux").value = this.value;
+				document.getElementById("pref_style_it").value = this.value;
+				document.getElementById("pref_style_hardware").value = this.value;
+				document.getElementById("pref_style_developers").value = this.value;
+				document.getElementById("pref_style_ask").value = this.value;
+				document.getElementById("pref_style_yro").value = this.value;
+			};
+		]]>
+	</script>
+</dialog>
+ 
