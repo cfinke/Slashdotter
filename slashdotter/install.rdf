@@ -13,7 +13,7 @@
   <RDF:Description RDF:about="urn:mozilla:install-manifest"
                    em:id="{c4f1fdfb-49f5-4cb5-a4e5-3b857ca2ef95}"
                    em:name="Slashdotter"
-                   em:version="1.9.1"
+                   em:version="2.0"
                    em:description="Adds features that ease the viewing and usage of Slashdot.org."
                    em:creator="Christopher Finke"
                    em:homepageURL="http://www.chrisfinke.com/addons/slashdotter/"
