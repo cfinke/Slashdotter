@@ -68,8 +68,7 @@ var XpiInstaller = {
 		Install.registerChrome(Install.SKIN | installType, jarPath, regPath);
 
 		for (var i = 0; i < this.prefs.length; i++) {
-			addFile(name + " Defaults", version, "defaults/preferences/" + prefs[i],
-			prefFolder, prefs[i], true);
+			addFile(this.extShortName + " Defaults", this.extVersion, "defaults/preferences/" + this.prefs[i], getFolder(getFolder("Program", "defaults"), "pref"), this.prefs[i], true);
 		}
 
 		// Perform install
