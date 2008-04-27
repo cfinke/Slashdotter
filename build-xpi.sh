@@ -7,6 +7,7 @@ chmod -R 0777 slashdotter/
 
 mkdir .tmp_xpi_dir/
 cp -r slashdotter/* .tmp_xpi_dir/
+rm -rf `find ./.tmp_xpi_dir/ -name ".svn"`
 
 cd .tmp_xpi_dir/chrome/
 zip -rq ../slashdotter.jar *
@@ -16,3 +17,5 @@ cd ../
 zip -rq ../slashdotter.xpi *
 cd ../
 rm -rf .tmp_xpi_dir/
+
+cp slashdotter.xpi ~/Desktop/

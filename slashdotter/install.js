@@ -3,10 +3,10 @@ var XpiInstaller = {
 	// --- Editable items begin ---
 	extFullName: 'Slashdotter', // The name displayed to the user (don't include the version)
 	extShortName: 'slashdotter', // The leafname of the JAR file (without the .jar part)
-	extVersion: '1.8.13',
+	extVersion: '2.0',
 	extAuthor: 'Christopher Finke',
 	extLocaleNames: null, // e.g. ['en-US', 'en-GB']
-	extSkinNames: ['classic'], // e.g. ['classic', 'modern']
+	prefs : ["slashdotter.js"],
 	extPostInstallMessage: 'Please restart your browser to finish the installation.', // Set to null for no post-install message
 	// --- Editable items end ---
 
@@ -54,20 +54,22 @@ var XpiInstaller = {
 		var installType = this.profileInstall ? Install.PROFILE_CHROME : Install.DELAYED_CHROME;
 
 		// Register content
-		Install.registerChrome(Install.CONTENT | installType, jarPath, 'content/' + this.extShortName + '/');
+		Install.registerChrome(Install.CONTENT | installType, jarPath, 'content/');
 
 		// Register locales
 		for (var locale in this.extLocaleNames)
 		{
-			var regPath = 'locale/' + this.extLocaleNames[locale] + '/' + this.extShortName + '/';
+			var regPath = 'locale/' + this.extLocaleNames[locale] + '/';
 			Install.registerChrome(Install.LOCALE | installType, jarPath, regPath);
 		}
 
-		// Register skins
-		for (var skin in this.extSkinNames)
-		{
-			var regPath = 'skin/' + this.extSkinNames[skin] + '/' + this.extShortName + '/';
-			Install.registerChrome(Install.SKIN | installType, jarPath, regPath);
+		// Register skin
+		var regPath = 'skin/';
+		Install.registerChrome(Install.SKIN | installType, jarPath, regPath);
+
+		for (var i = 0; i < this.prefs.length; i++) {
+			addFile(name + " Defaults", version, "defaults/preferences/" + prefs[i],
+			prefFolder, prefs[i], true);
 		}
 
 		// Perform install

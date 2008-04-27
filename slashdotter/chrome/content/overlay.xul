@@ -10,7 +10,7 @@
 			var appcontent = document.getElementById("appcontent");
 			
 			if (appcontent) {
-				appcontent.addEventListener("DOMContentLoaded", SLASHDOTTER.DOMContentLoaded, true);
+				appcontent.addEventListener("DOMContentLoaded", function (event) { SLASHDOTTER.DOMContentLoaded(event); }, true);
 			}
 
 		]]>

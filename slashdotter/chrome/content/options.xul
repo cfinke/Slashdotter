@@ -78,9 +78,6 @@
 						<tooltip id="tt_ar" onpopupshowing="this.height = this.popupBoxObject.height;">
 							<description style="width: 30em;">When clicking on "X Replies below your threshold" links, have the replies appear in the page without reloading.</description>
 						</tooltip>
-						<tooltip id="tt_pl" onpopupshowing="this.height = this.popupBoxObject.height;">
-							<description style="width: 30em;">Each comment's "Parent" link links to the parent comment on the current page, rather than a separate page for the parent comment and its replies.</description>
-						</tooltip>
 						<tooltip id="tt_aroc" onpopupshowing="this.height = this.popupBoxObject.height;">
 							<description style="width: 30em;">When clicking on "Read the rest of this comment..." links, have the full comment load in place on the page, without loading a new page.</description>
 						</tooltip>
@@ -97,11 +94,6 @@
 							
 							<hbox>
 								<checkbox id="pref_aroc" label="AJAX Rest Of Comment Links" tooltip="tt_aroc"/>
-								<spacer/>
-							</hbox>
-							
-							<hbox>
-								<checkbox id="pref_pl" label="Quick Parent Links" tooltip="tt_pl"/>
 								<spacer/>
 							</hbox>
 						</vbox>
@@ -122,6 +114,7 @@
 									<menuitem label="No change" value="" />
 									<menuitem label="Apple" value="apple" />
 									<menuitem label="AskSlashdot" value="ask" />
+									<menuitem label="BSD" value="bsd" />
 									<menuitem label="Developers" value="developer" />
 									<menuitem label="Games" value="games" />
 									<menuitem label="Hardware" value="hardware" />
@@ -149,6 +142,7 @@
 											<menupopup flex="1">
 												<menuitem label="No change" value="" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
@@ -165,6 +159,7 @@
 											<menupopup>
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
@@ -184,6 +179,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
@@ -200,6 +196,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
 												<menuitem label="IT" value="it" />
@@ -218,6 +215,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Hardware" value="hardware" />
 												<menuitem label="IT" value="it" />
@@ -234,6 +232,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="IT" value="it" />
@@ -252,6 +251,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
@@ -268,6 +268,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
@@ -286,6 +287,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
@@ -302,6 +304,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
@@ -320,6 +323,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
@@ -336,6 +340,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
@@ -354,6 +359,7 @@
 												<menuitem label="No change" value="" />
 												<menuitem label="Apple" value="apple" />
 												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
 												<menuitem label="Developers" value="developer" />
 												<menuitem label="Games" value="games" />
 												<menuitem label="Hardware" value="hardware" />
@@ -364,12 +370,28 @@
 												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
 											</menupopup>
 										</menulist>
+										<label value="BSD" control="pref_style_bsd" />
+										<menulist id="pref_style_bsd" tooltip="tt_style" flex="1">
+											<menupopup>
+												<menuitem label="No change" value="" />
+												<menuitem label="Apple" value="apple" />
+												<menuitem label="AskSlashdot" value="ask" />
+												<menuitem label="BSD" value="bsd" />
+												<menuitem label="Developers" value="developer" />
+												<menuitem label="Games" value="games" />
+												<menuitem label="Hardware" value="hardware" />
+												<menuitem label="IT" value="it" />
+												<menuitem label="Linux" value="linux" />
+												<menuitem label="Politics" value="politics" />
+												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<menuitem label="YRO" value="yro" />
+											</menupopup>
+										</menulist>
 									</row>
 								</rows>
 							</grid>
 						</groupbox>
 						<groupbox>
-							<checkbox id="pref_squareCorners" label="Square (most) rounded corners"/>
 							<checkbox id="pref_commentIndent" label="Increase comment reply indentation"/>
 						</groupbox>
 					</vbox>
@@ -428,23 +450,12 @@
 				}
 				
 				try {
-					document.getElementById("pref_pl").checked = prefs.getBoolPref("quickParentLinksEnabled");
-				} catch (e) {
-				}
-				
-				try {
 					document.getElementById("pref_rf").value = prefs.getCharPref("replyFormat");
 				} catch (e) {
 				}
 				
 				try {
 					document.getElementById("pref_ss").value = prefs.getCharPref("stylesheet");
-				} catch (e) {
-				}
-				
-								
-				try {
-					document.getElementById("pref_squareCorners").checked = prefs.getBoolPref("squareCorners");
 				} catch (e) {
 				}
 				
@@ -460,6 +471,7 @@
 				
 				try {
 					document.getElementById("pref_style_apple").value = prefs.getCharPref("style.apple");
+					document.getElementById("pref_style_bsd").value = prefs.getCharPref("style.bsd");
 					document.getElementById("pref_style_interviews").value = prefs.getCharPref("style.interviews");
 					document.getElementById("pref_style_books").value = prefs.getCharPref("style.books");
 					document.getElementById("pref_style_games").value = prefs.getCharPref("style.games");
@@ -528,22 +540,12 @@
 				}
 				
 				try {
-					prefs.setBoolPref("quickParentLinksEnabled",document.getElementById("pref_pl").checked);
-				} catch (e) {
-				}
-				
-				try {
 					prefs.setCharPref("replyFormat",document.getElementById("pref_rf").value);
 				} catch (e) {
 				}
 				
 				try {
 					prefs.setCharPref("stylesheet",document.getElementById("pref_ss").value);
-				} catch (e) {
-				}
-				
-				try {
-					prefs.setBoolPref("squareCorners",document.getElementById("pref_squareCorners").checked);
 				} catch (e) {
 				}
 				
@@ -563,6 +565,7 @@
 					prefs.setCharPref("style.apple",document.getElementById("pref_style_apple").value);
 					prefs.setCharPref("style.interviews",document.getElementById("pref_style_interviews").value);
 					prefs.setCharPref("style.books",document.getElementById("pref_style_books").value);
+					prefs.setCharPref("style.bsd",document.getElementById("pref_style_bsd").value);
 					prefs.setCharPref("style.games",document.getElementById("pref_style_games").value);
 					prefs.setCharPref("style.main",document.getElementById("pref_style_main").value);
 					prefs.setCharPref("style.science",document.getElementById("pref_style_science").value);
@@ -581,6 +584,7 @@
 				document.getElementById("pref_style_apple").value = "";
 				document.getElementById("pref_style_interviews").value = "";
 				document.getElementById("pref_style_books").value = "";
+				document.getElementById("pref_style_bsd").value = "";
 				document.getElementById("pref_style_games").value = "";
 				document.getElementById("pref_style_main").value = "";
 				document.getElementById("pref_style_science").value = "";
@@ -595,6 +599,7 @@
 				document.getElementById("pref_style_apple").value = this.value;
 				document.getElementById("pref_style_interviews").value = this.value;
 				document.getElementById("pref_style_books").value = this.value;
+				document.getElementById("pref_style_bsd").value = this.value;
 				document.getElementById("pref_style_games").value = this.value;
 				document.getElementById("pref_style_main").value = this.value;
 				document.getElementById("pref_style_science").value = this.value;
@@ -609,4 +614,3 @@
 		]]>
 	</script>
 </dialog>
- 
