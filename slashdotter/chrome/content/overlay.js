@@ -1,17 +1,29 @@
 var SLASHDOTTER = {
-	browser : null,
 	prefs : null,
 	
 	modCheckTimeoutID : null,
 	modAlert : null,
 	
 	onload : function () {
-		this.browser = window.gBrowser || window.parent.gBrowser || document.getElementById("content");
-		document.getElementById("contentAreaContextMenu").addEventListener("popupshowing", function () { SLASHDOTTER.addQuickReply(); }, false);
+		var appcontent = document.getElementById("appcontent");
+		
+		if (!appcontent) {
+			appcontent = document.getElementById("content");
+		}
+		
+		if (appcontent) {
+			appcontent.addEventListener("DOMContentLoaded", function (event) { SLASHDOTTER.DOMContentLoaded(event); }, true);
+		}
+		
+		try {
+			document.getElementById("contentAreaContextMenu").addEventListener("popupshowing", function () { SLASHDOTTER.addQuickReply(); }, false);
+		} catch (noContextMenu) {
+		}
+		
 		this.prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.slashdotter.");
 		this.modAlert = document.getElementById("slashdotter-modalert-panel");
-
-		if (this.prefs.getBoolPref("modCheck")){
+		
+		if (this.modAlert && this.prefs.getBoolPref("modCheck")){
 			this.checkForModeratorPoints();
 		}
 	},
@@ -106,7 +118,7 @@ var SLASHDOTTER = {
 	},
 	
 	cacheLinks : function (page) {
-		var links = page.evaluate("//div[@class='intro']//a[@href]", page, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+		var links = page.evaluate("//div[@class='body']/div//a[@href]", page, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
 	
 		var alink = links.iterateNext();
 		var linkList = [];
@@ -320,8 +332,8 @@ var SLASHDOTTER = {
 	},
 	
 	addCommentToggles : function (page) {
-		// Get all of the comments that also have replies					
-		var topComments = page.evaluate("//li[@class='comment contain' and ul[li]]/div/div[@class='commentSub']", page, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+		// Get all of the comments that also have replies
+		var topComments = page.evaluate("//li[@class='comment' and ul[li]]/div/div[@class='commentSub']", page, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
 
 		var comment = topComments.iterateNext();
 

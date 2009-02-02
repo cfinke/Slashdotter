@@ -7,12 +7,6 @@
 
 			window.addEventListener("load", function () { SLASHDOTTER.onload(); }, false);
 			
-			var appcontent = document.getElementById("appcontent");
-			
-			if (appcontent) {
-				appcontent.addEventListener("DOMContentLoaded", function (event) { SLASHDOTTER.DOMContentLoaded(event); }, true);
-			}
-
 		]]>
 	</script>
 	<statusbar id="status-bar">

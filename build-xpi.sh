@@ -16,6 +16,18 @@ mv ../slashdotter.jar ./
 cd ../
 zip -rq ../slashdotter.xpi *
 cd ../
+
+
+
+mkdir ~/Library/Application\ Support/Fennec/Profiles/uh6wew3f.default/extensions/\{c4f1fdfb-49f5-4cb5-a4e5-3b857ca2ef95\}/
+rm -rf               ~/Library/Application\ Support/Fennec/Profiles/uh6wew3f.default/extensions/\{c4f1fdfb-49f5-4cb5-a4e5-3b857ca2ef95\}/*
+cp -r .tmp_xpi_dir/* ~/Library/Application\ Support/Fennec/Profiles/uh6wew3f.default/extensions/\{c4f1fdfb-49f5-4cb5-a4e5-3b857ca2ef95\}/
+
+
+
+
+
+
 rm -rf .tmp_xpi_dir/
 
 cp slashdotter.xpi ~/Desktop/

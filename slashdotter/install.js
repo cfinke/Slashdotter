@@ -3,7 +3,7 @@ var XpiInstaller = {
 	// --- Editable items begin ---
 	extFullName: 'Slashdotter', // The name displayed to the user (don't include the version)
 	extShortName: 'slashdotter', // The leafname of the JAR file (without the .jar part)
-	extVersion: '2.0',
+	extVersion: '2.1',
 	extAuthor: 'Christopher Finke',
 	extLocaleNames: null, // e.g. ['en-US', 'en-GB']
 	prefs : ["slashdotter.js"],
