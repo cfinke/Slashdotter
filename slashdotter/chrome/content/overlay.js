@@ -5,6 +5,8 @@ var SLASHDOTTER = {
 	modAlert : null,
 	
 	onload : function () {
+		removeEventListener("load", SLASHDOTTER.onload, false);
+		
 		var appcontent = document.getElementById("appcontent");
 		
 		if (!appcontent) {
@@ -20,12 +22,19 @@ var SLASHDOTTER = {
 		} catch (noContextMenu) {
 		}
 		
-		this.prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.slashdotter.");
-		this.modAlert = document.getElementById("slashdotter-modalert-panel");
+		SLASHDOTTER.prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.slashdotter.");
+		SLASHDOTTER.modAlert = document.getElementById("slashdotter-modalert-panel");
 		
-		if (this.modAlert && this.prefs.getBoolPref("modCheck")){
-			this.checkForModeratorPoints();
+		if (SLASHDOTTER.modAlert && SLASHDOTTER.prefs.getBoolPref("modCheck")){
+			SLASHDOTTER.checkForModeratorPoints();
 		}
+		
+		addEventListener("unload", SLASHDOTTER.unload, false);
+	},
+	
+	unload : function () {
+		removeEventListener("unload", SLASHDOTTER.unload, false);
+		
 	},
 	
 	DOMContentLoaded : function (event) {
@@ -45,39 +54,35 @@ var SLASHDOTTER = {
 			section = "main";
 		}
 		
-		if (this.prefs.getBoolPref("showCCLinks") || this.prefs.getBoolPref("showMDLinks") || this.prefs.getBoolPref("showGCLinks")){
-			this.cacheLinks(page);
+		if (SLASHDOTTER.prefs.getBoolPref("showCCLinks") || SLASHDOTTER.prefs.getBoolPref("showMDLinks") || SLASHDOTTER.prefs.getBoolPref("showGCLinks")){
+			SLASHDOTTER.cacheLinks(page);
 		}
 				
-		if (this.prefs.getBoolPref("enableCommentToggles")){
-			this.addCommentToggles(page);
+		if (SLASHDOTTER.prefs.getBoolPref("enableCommentToggles")){
+			SLASHDOTTER.addCommentToggles(page);
 		}
 
-		if (this.prefs.getBoolPref("ajaxReplies")){		
-			this.ajaxifyReplyLinks(page);
-		}
-				
-		if (this.prefs.getBoolPref("ajaxRestOfComment")){		
-			this.ajaxifyRestOfCommentLinks(page);
-		}
-
-		if (this.prefs.getBoolPref("commentIndent")){
-			this.increasePadding(page);
+		if (SLASHDOTTER.prefs.getBoolPref("commentIndent")){
+			SLASHDOTTER.increasePadding(page);
 		}
 		
-		var sectionStyle = this.prefs.getCharPref("style." + section);
+		try {
+			var sectionStyle = SLASHDOTTER.prefs.getCharPref("style." + section);
 		
-		if (sectionStyle != ''){
-			this.applyStyle(page, sectionStyle);
+			if (sectionStyle != ''){
+				SLASHDOTTER.applyStyle(page, sectionStyle);
+			}
+		} catch (e) {
+			// A section we don't know about.
 		}
 	},
 	
 	checkForModeratorPoints : function () {
-		if (this.modCheckTimeoutID){
-			clearTimeout(this.modCheckTimeoutID);
+		if (SLASHDOTTER.modCheckTimeoutID){
+			clearTimeout(SLASHDOTTER.modCheckTimeoutID);
 		}
 		
-		if (this.prefs.getBoolPref("modCheck")) {
+		if (SLASHDOTTER.prefs.getBoolPref("modCheck")) {
 			var req = new XMLHttpRequest();
 			
 			try {
@@ -107,46 +112,36 @@ var SLASHDOTTER = {
 				req.send(null);
 			}
 			catch (e) {
-				this.modAlert.setAttribute("hidden","true");
+				SLASHDOTTER.modAlert.setAttribute("hidden","true");
 			}
 			
-			this.modCheckTimeoutID = setTimeout(function () { SLASHDOTTER.checkForModeratorPoints(); }, 6 * 60 * 60 * 1000);
+			SLASHDOTTER.modCheckTimeoutID = setTimeout(function () { SLASHDOTTER.checkForModeratorPoints(); }, 6 * 60 * 60 * 1000);
 		}
 		else {
-			this.modAlert.setAttribute("hidden","true");
+			SLASHDOTTER.modAlert.setAttribute("hidden","true");
 		}
 	},
 	
+	// @done
 	cacheLinks : function (page) {
-		var links = page.evaluate("//div[@class='body']/div//a[@href]", page, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-	
-		var alink = links.iterateNext();
-		var linkList = [];
-						
-		while (alink){
-			linkList.push(alink);
-			
-			alink = links.iterateNext();
-		}
-		
-		for (var i = 0; i < linkList.length; i ++){
-			alink = linkList[i];
+		SLASHDOTTER.$(page).find("div.body  div[id^='text'] a[href]").each(function () {
+			var alink = this;
 			
 			tmp = alink.href;
-			
+		
 			if (tmp){
 				if ((tmp.indexOf('slashdot.org/') == -1) && (tmp.indexOf('.nyud.net:8090') == -1) && (tmp.indexOf('http://') == 0)){
-					if (this.prefs.getBoolPref("showGCLinks")){					
+					if (SLASHDOTTER.prefs.getBoolPref("showGCLinks")){					
 						var googLink = page.createElement('a');
 						googLink.setAttribute("href",'http://www.google.com/search?q=cache:' + tmp);
 						googLink.setAttribute("title","Google Cache Link");
 						googLink.appendChild(page.createTextNode("[GC]"));
-					
+				
 						alink.parentNode.insertBefore(googLink, alink.nextSibling);					
 						alink.parentNode.insertBefore(page.createTextNode(" "), alink.nextSibling);
 					}
-					
-					if (this.prefs.getBoolPref("showMDLinks")){
+				
+					if (SLASHDOTTER.prefs.getBoolPref("showMDLinks")){
 						var mdLink = page.createElement('a');
 						mdLink.setAttribute("href",'http://www.mirrordot.com/find-mirror.html?' + tmp);
 						mdLink.setAttribute("title","MirrorDot Link");
@@ -155,10 +150,10 @@ var SLASHDOTTER = {
 						alink.parentNode.insertBefore(mdLink, alink.nextSibling);					
 						alink.parentNode.insertBefore(page.createTextNode(" "), alink.nextSibling);
 					}
-					
-					if (this.prefs.getBoolPref("showCCLinks")){
+				
+					if (SLASHDOTTER.prefs.getBoolPref("showCCLinks")){
 						tmp = tmp.substr(7);
-					
+				
 						if (tmp.indexOf('/')){
 							tmp2 = tmp.substr(0,tmp.indexOf('/'));
 							tmp3 = tmp.substr(tmp.indexOf('/'));
@@ -167,9 +162,9 @@ var SLASHDOTTER = {
 							tmp2 = tmp;
 							tmp3 = '';
 						}
-						
+					
 						newlink = 'http://'+tmp2+'.nyud.net:8090'+tmp3;
-						
+					
 						var ccLink = page.createElement('a');
 						ccLink.href = newlink;
 						ccLink.host += ".nyud.net:8080";
@@ -181,32 +176,34 @@ var SLASHDOTTER = {
 					}
 				}
 			}
-		}
+		});
 	},
 	
+	// @done
 	addQuickReply : function () {
-		if (this.prefs.getBoolPref("enableQuickReply")){
+		if (SLASHDOTTER.prefs.getBoolPref("enableQuickReply")){
 			var url = window.content.location.href;
 			
-			if (url.match(/(\w*\.)?slashdot.org\/(article|comments|journal).pl/i) ||
+			if (url.match(/(\w*\.)?slashdot.org\/story/i) ||
 				url.match(/(\w*\.)?slashdot.org\/\1\/.*\.shtml/i) ||
 				url.match(/(\w*\.)?slashdot.org\/~(.*)\/journal\//i)){
 				if (window.content.getSelection().toString() != ''){
-					this.enableQuickReply();
+					SLASHDOTTER.enableQuickReply();
 				}
 				else {
-					this.disableQuickReply();
+					SLASHDOTTER.disableQuickReply();
 				}
 			}
 			else {
-				this.disableQuickReply();
+				SLASHDOTTER.disableQuickReply();
 			}
 		}
 		else {
-			this.disableQuickReply();
+			SLASHDOTTER.disableQuickReply();
 		}
 	},
 	
+	// @done
 	enableQuickReply : function () {
 		if (!document.getElementById("slashdotterQROptionDivider")){
 			var qrDivider = document.createElement('menuseparator');
@@ -224,6 +221,7 @@ var SLASHDOTTER = {
 		}
 	},
 	
+	// @done
 	disableQuickReply : function () {
 		if (document.getElementById("slashdotterQROptionDivider")){
 			document.getElementById('contentAreaContextMenu').removeChild(document.getElementById("slashdotterQROptionDivider"));
@@ -234,6 +232,7 @@ var SLASHDOTTER = {
 		}
 	},
 	
+	// @done
 	quickReply : function (event) {
 		if (event.which == 2 || event.metaKey || event.ctrlKey) var inNewTab = true;
 		else inNewTab = false;
@@ -244,21 +243,21 @@ var SLASHDOTTER = {
 		var commentContainer;
 		var replyLink;
 		
-		if (!(commentContainer = this.getCommentContainer(theRange.startContainer))){
+		if (!(commentContainer = SLASHDOTTER.getCommentContainer(theRange.startContainer))){
 			alert("Slashdotter Error: Could not find parent comment node of selected text");
 		}
-		else if (commentContainer != this.getCommentContainer(theRange.endContainer)){
+		else if (commentContainer != SLASHDOTTER.getCommentContainer(theRange.endContainer)){
 			alert("Please only select text from one comment at a time.");
 		}
 		else {
-			if (!(replyLink = this.getNextReplyLink(commentContainer))){
+			if (!(replyLink = SLASHDOTTER.getNextReplyLink(commentContainer))){
 				alert("Slashdotter Error: Could not find 'Reply to This' link");
 			}
 			else {
 				if (replyLink.nodeName == "A"){
-					var linkURL = "http:" + replyLink.getAttribute("href") + "&postercomment=" + encodeURIComponent(this.prefs.getCharPref("replyFormat").replace(/%s/g, theSelection.toString()));
+					var linkURL = "http:" + replyLink.getAttribute("href") + "&postercomment=" + encodeURIComponent(SLASHDOTTER.prefs.getCharPref("replyFormat").replace(/%s/g, theSelection.toString()));
 					
-					if (inNewTab || this.prefs.getBoolPref("replyInNewTab")){
+					if (inNewTab || SLASHDOTTER.prefs.getBoolPref("replyInNewTab")){
 						openInNewTab(linkURL);
 					}
 					else {
@@ -269,7 +268,7 @@ var SLASHDOTTER = {
 					var textfield = window.content.document.createElement("input");
 					textfield.type = "hidden";
 					textfield.name = "postercomment";
-					textfield.value = this.prefs.getCharPref("replyFormat").replace(/%s/g, theSelection.toString());
+					textfield.value = SLASHDOTTER.prefs.getCharPref("replyFormat").replace(/%s/g, theSelection.toString());
 					
 					replyLink.parentNode.appendChild(textfield);
 					
@@ -286,6 +285,7 @@ var SLASHDOTTER = {
 		}
 	},
 	
+	// @done
 	getCommentContainer : function (node) {
 		while (node){
 			if ((node.nodeName == "DIV") && ((node.className.indexOf("commentBody") != -1) || (node.className == "body"))){
@@ -298,6 +298,7 @@ var SLASHDOTTER = {
 		return null;
 	},
 	
+	// @done
 	getNextReplyLink : function (node) {
 		if (node){
 			if (node.className == "commentBody"){
@@ -331,152 +332,55 @@ var SLASHDOTTER = {
 		return null;
 	},
 	
+	// @done
 	addCommentToggles : function (page) {
-		// Get all of the comments that also have replies
-		var topComments = page.evaluate("//li[@class='comment' and ul[li]]/div/div[@class='commentSub']", page, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-
-		var comment = topComments.iterateNext();
-
-		// Iterate through the comments and add them to an array, as we can't modify the results of the XPATH search.		
-		var topCommentList = [];
-		
-		while (comment){
-			topCommentList.push(comment);
-			comment = topComments.iterateNext();
-		}
-		
-		for (var i = 0; i < topCommentList.length; i++){
-			var thisComment = topCommentList[i];
-			var thisNode = this.getNextReplyLink(thisComment);
+		SLASHDOTTER.$(page).find("li.comment.contain div.commentSub").each(function () {
+			var thisComment = this;
 			
-			if (thisNode){
-				thisNode = thisNode.parentNode.parentNode.parentNode;
-				
-				var toggleSpan = page.createElement("span");
-				toggleSpan.setAttribute("class","nbutton");
-				toggleSpan.innerHTML = '<p><b><a href="javascript:void(0);" onclick="for (var z in this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes){ if (this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].nodeName == \'UL\'){ if (this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display != \'none\') { this.innerHTML = \'Show Replies\'; this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display = \'none\'; } else { this.innerHTML = \'Hide Replies\'; this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display = \'\'; } } }">Hide Replies</a></b></p>';
-				
-				thisNode.parentNode.insertBefore(toggleSpan, thisNode);				
-				thisNode.parentNode.insertBefore(page.createTextNode(" "), thisNode);
-			}
-		}			
-	},
+			if (SLASHDOTTER.$(this).parents("li.comment:first").find("li.comment").length > 0) {
+				var thisNode = SLASHDOTTER.getNextReplyLink(thisComment);
 		
-	applyStyle : function (page, style) {
-		var head = page.getElementsByTagName("head")[0];
-		
-		var styles = page.getElementsByTagName("link");
-		
-		for (var i = 0; i < styles.length; i++){
-			if (styles[i].getAttribute("rel") == "stylesheet"){
-				if (styles[i].getAttribute("href").indexOf("slashdot_") != -1){
-					styles[i].parentNode.removeChild(styles[i]);
-					break;
+				if (thisNode){
+					thisNode = thisNode.parentNode.parentNode.parentNode;
+			
+					var toggleSpan = page.createElement("span");
+					toggleSpan.setAttribute("class","nbutton");
+					toggleSpan.innerHTML = '<p><b><a href="javascript:void(0);" onclick="for (var z in this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes){ if (this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].nodeName == \'UL\'){ if (this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display != \'none\') { this.innerHTML = \'Show Replies\'; this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display = \'none\'; } else { this.innerHTML = \'Hide Replies\'; this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display = \'\'; } } }">Hide Replies</a></b></p>';
+			
+					thisNode.parentNode.insertBefore(toggleSpan, thisNode);				
+					thisNode.parentNode.insertBefore(page.createTextNode(" "), thisNode);
 				}
 			}
-		}
+		});
+	},
+	
+	// @done, except for ponies
+	applyStyle : function (page, style) {
+		SLASHDOTTER.$(page).find("link.data-skin[rel='stylesheet']").remove();
+		
+		var head = page.getElementsByTagName("head")[0];
 		
 		if (style != 'main'){
 			var styleNode = page.createElement("link");
 			styleNode.rel = "stylesheet";
 			styleNode.type = "text/css";
 			styleNode.media = "screen, projection";
+			styleNode.setAttribute("class", "data-skin");
 			
-			if (style == 'ponies'){
-				styleNode.href = 'chrome://slashdotter/skin/ponies/style.css';
-			}
-			else {
-				styleNode.href = "//images.slashdot.org/slashdot_" + style + ".css";
+			if (style != 'ponies'){
+//				styleNode.href = 'chrome://slashdotter/skin/ponies/style.css';
+//			}
+//			else {
+				styleNode.href = "//a.fsdn.com/sd/yui_" + style + ".css";
 			}
 			
 			head.appendChild(styleNode);
 		}
 	},
 	
-	ajaxifyReplyLinks : function (page) {
-		// First do threshold links
-		var links = page.evaluate("//ul[@id='commentlisting']//li/ul/li/b/a", page, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-
-		var alink = links.iterateNext();
-		var linkList = [];
-						
-		while (alink){
-			linkList.push(alink);
-			
-			alink = links.iterateNext();
-		}
-		
-		for (var i = 0; i < linkList.length; i++){
-			alink = linkList[i];
-			
-			if (alink.setAttribute){
-				alink.setAttribute("onclick","var a=this.parentNode.parentNode;a.style.color = '#888888';a.innerHTML = 'Loading comment(s)...';var r=new XMLHttpRequest();r.open('GET','"+alink.href+"',true);r.onreadystatechange=function(evt){if (r.readyState==4){if(r.status==200){var t=r.responseText;var x=t.indexOf('<ul id=\"commentlisting\"');x=t.indexOf('>',x);var y=t.lastIndexOf('</ul>');t = t.substring((x+1),y);t=t.substring(0,t.lastIndexOf('</ul>'));a.parentNode.style.backgroundColor='#ffffee';a.parentNode.innerHTML=t;}else{alert(\"Unable to retrieve comment(s).\");}}};r.send(null);return false;");
-			}
-		}
-		
-		// Now do threaded type links
-		links = page.evaluate("//ul[@id='commentlisting']//li/ul/li/a", page, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-
-		alink = links.iterateNext();
-		linkList = [];
-						
-		while (alink){
-			linkList.push(alink);
-			
-			alink = links.iterateNext();
-		}
-		
-		for (var i = 0; i < linkList.length; i++){
-			alink = linkList[i];
-			
-			if (alink.setAttribute){
-				var linkID = alink.href.split('#')[1];
-				
-				alink.setAttribute("onclick","var a=this;a.style.color = '#888888';a.innerHTML = 'Loading comment...';a.parentNode.removeChild(a.nextSibling);var r=new XMLHttpRequest();r.open('GET','"+alink.href+"',true);r.onreadystatechange=function(evt){if (r.readyState==4){if(r.status==200){var t=r.responseText;var x=t.indexOf('<li id=\"tree_" + linkID + "\" class=\"comment\">');t = t.substring(x+39);var lines = t.split(\"\\n\"); var t = '';  for (var i = 0; i < lines.length; i++) { if (lines[i-2] == '</div>' && lines[i-1] == '</div>') { break; } else { t += lines[i] + \"\\\n\"; } } var q=document.createElement('div');q.innerHTML=t;q.style.backgroundColor='#ffffee';q.style.backgroundImage='';if (a == a.parentNode.lastChild) { a.parentNode.appendChild(q); } else { a.parentNode.insertBefore(q, a.nextSibling);}a.parentNode.removeChild(a);a.parentNode.style.backgroundImage='';}else{alert(\"Unable to retrieve comment.\");}}};r.send(null);return false;");
-			}
-		}
-	},
-
+	// @done
 	increasePadding : function(page){
-		var links = page.evaluate("//div[@id='contents']//ul//li//ul", page, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-
-		var alink = links.iterateNext();
-		var linkList = [];
-						
-		while (alink){
-			linkList.push(alink);
-			
-			alink = links.iterateNext();
-		}
-		
-		for (var i = 0; i < linkList.length; i++){
-			alink = linkList[i];
-			
-			if (alink.style){
-				alink.style.paddingLeft = '3em';
-			}
-		}
-	},
-			
-	ajaxifyRestOfCommentLinks : function (page) {
-		var links = page.evaluate("//div[@class='commentBody']/div[@class='commentshrunk']//a", page, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-		
-		var alink = links.iterateNext();
-		var linkList = [];
-						
-		while (alink){
-			linkList.push(alink);
-			
-			alink = links.iterateNext();
-		}
-		
-		for (var i = 0; i < linkList.length; i++){
-			alink = linkList[i];
-			
-			if (alink.setAttribute){
-				alink.setAttribute("onclick","var a=this.parentNode.parentNode;this.parentNode.style.color = '#888888';this.parentNode.innerHTML = 'Loading comment...';var r=new XMLHttpRequest();r.open('GET','"+alink.href+"',true);r.onreadystatechange=function(evt){if (r.readyState==4){if(r.status==200){var t=r.responseText;var x=t.indexOf('<div class=\"commentBody\">');t=t.substring((x+25),t.lastIndexOf('</div>'));a.innerHTML=t;}else{alert(\"Unable to retrieve comment.\");}}};r.send(null);return false;");
-			}
-		}
+		SLASHDOTTER.$(page).find("head").append('<style type="text/css"> #commentlisting li.comment li.comment { margin-left: 3em; } </style>');
 	}
 };
 

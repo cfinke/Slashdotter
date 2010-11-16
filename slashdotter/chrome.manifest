@@ -1,7 +1,4 @@
-content slashdotter   chrome/content/ 
 content slashdotter   chrome/content/ contentaccessible=yes
 skin    slashdotter   classic      chrome/skin/
 
 overlay chrome://browser/content/browser.xul              chrome://slashdotter/content/overlay.xul
-
-style chrome://browser/content/browser.xul chrome://slashdotter/skin/style.css

@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 	<Description about="urn:mozilla:install-manifest">
-		<em:id>feedbar@efinke.com</em:id>
-		<em:name>Feed Sidebar</em:name>
+		<em:id>{c4f1fdfb-49f5-4cb5-a4e5-3b857ca2ef95}</em:id>
+		<em:name>Slashdotter</em:name>
 		<em:version>2.2</em:version>
-		<em:description>Adds features that ease the viewing and usage of Slashdot.org.</em:description>
+		<em:description>Displays the items from your Live Bookmarks in a sidebar.</em:description>
 		<em:creator>Christopher Finke</em:creator>
-		<em:iconURL>chrome://feedbar/content/skin-common/logo.gif</em:iconURL>
-		<em:homepageURL>http://www.chrisfinke.com/addons/feedbar/</em:homepageURL>
-		<em:optionsURL>chrome://feedbar/content/options.xul</em:optionsURL>	
+		<em:iconURL>chrome://slashdotter/skin/slashdotter.png</em:iconURL>
+		<em:homepageURL>http://www.chrisfinke.com/addons/slashdotter/</em:homepageURL>
+		<em:optionsURL>chrome://slashdotter/content/options.xul</em:optionsURL>	
 		
 		<!-- Firefox -->
 		
@@ -16,7 +16,7 @@
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
 				<em:minVersion>3.5</em:minVersion>
-				<em:maxVersion>4.0b3pre</em:maxVersion>
+				<em:maxVersion>4.0b8pre</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 		

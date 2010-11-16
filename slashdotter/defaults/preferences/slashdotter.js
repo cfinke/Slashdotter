@@ -2,8 +2,6 @@ pref("extensions.slashdotter.showCCLinks", true);
 pref("extensions.slashdotter.showMDLinks", false);
 pref("extensions.slashdotter.showGCLinks", false);
 pref("extensions.slashdotter.enableCommentToggles", true);
-pref("extensions.slashdotter.ajaxReplies", true);
-pref("extensions.slashdotter.ajaxRestOfComment", true);
 pref("extensions.slashdotter.enableQuickReply", true);
 pref("extensions.slashdotter.replyInNewTab", false);
 pref("extensions.slashdotter.commentIndent", true);

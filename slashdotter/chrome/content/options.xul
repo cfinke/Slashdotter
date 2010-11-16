@@ -75,25 +75,9 @@
 						<tooltip id="tt_ct" onpopupshowing="this.height = this.popupBoxObject.height;">
 							<description style="width: 30em;">Enable Comment Toggles.  This adds a "Hide Replies/Show Replies" link at the bottom of each comment that has replies showing, allowing you to quickly toggle open/closed a set of replies to a comment.</description>
 						</tooltip>
-						<tooltip id="tt_ar" onpopupshowing="this.height = this.popupBoxObject.height;">
-							<description style="width: 30em;">When clicking on "X Replies below your threshold" links, have the replies appear in the page without reloading.</description>
-						</tooltip>
-						<tooltip id="tt_aroc" onpopupshowing="this.height = this.popupBoxObject.height;">
-							<description style="width: 30em;">When clicking on "Read the rest of this comment..." links, have the full comment load in place on the page, without loading a new page.</description>
-						</tooltip>
 						<vbox>
 							<hbox>
 								<checkbox id="pref_ct" label="Enable Comment Toggles" tooltip="tt_ct"/>
-								<spacer/>
-							</hbox>
-					
-							<hbox>
-								<checkbox id="pref_ar" label="AJAX Replies" tooltip="tt_ar"/>
-								<spacer/>
-							</hbox>
-							
-							<hbox>
-								<checkbox id="pref_aroc" label="AJAX Rest Of Comment Links" tooltip="tt_aroc"/>
 								<spacer/>
 							</hbox>
 						</vbox>
@@ -121,7 +105,7 @@
 									<menuitem label="IT" value="it" />
 									<menuitem label="Linux" value="linux" />
 									<menuitem label="Politics" value="politics" />
-									<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+									<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 									<menuitem label="YRO" value="yro" />
 								</menupopup>
 							</menulist>
@@ -150,7 +134,7 @@
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Main" value="main" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -167,7 +151,7 @@
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Main" value="main" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -186,7 +170,7 @@
 												<menuitem label="IT" value="it" />
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -203,7 +187,7 @@
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Main" value="main" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -222,7 +206,7 @@
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Main" value="main" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -239,7 +223,7 @@
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Main" value="main" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -258,7 +242,7 @@
 												<menuitem label="IT" value="it" />
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -275,7 +259,7 @@
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Main" value="main" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -294,7 +278,7 @@
 												<menuitem label="IT" value="it" />
 												<menuitem label="Main" value="main" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -311,7 +295,7 @@
 												<menuitem label="IT" value="it" />
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -330,7 +314,7 @@
 												<menuitem label="IT" value="it" />
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Main" value="main" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -347,7 +331,7 @@
 												<menuitem label="IT" value="it" />
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -367,7 +351,7 @@
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Main" value="main" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 											</menupopup>
 										</menulist>
 										<label value="BSD" control="pref_style_bsd" />
@@ -383,7 +367,7 @@
 												<menuitem label="IT" value="it" />
 												<menuitem label="Linux" value="linux" />
 												<menuitem label="Politics" value="politics" />
-												<menuitem label="OMG !!! Ponies!!!" value="ponies" />
+												<!-- <menuitem label="OMG !!! Ponies!!!" value="ponies" /> -->
 												<menuitem label="YRO" value="yro" />
 											</menupopup>
 										</menulist>
@@ -436,16 +420,6 @@
 				
 				try {
 					document.getElementById("pref_ct").checked = prefs.getBoolPref("enableCommentToggles");
-				} catch (e) {
-				}
-				
-				try {
-					document.getElementById("pref_ar").checked = prefs.getBoolPref("ajaxReplies");
-				} catch (e) {
-				}
-				
-				try {
-					document.getElementById("pref_aroc").checked = prefs.getBoolPref("ajaxRestOfComment");
 				} catch (e) {
 				}
 				
@@ -526,16 +500,6 @@
 				
 				try {
 					prefs.setBoolPref("enableCommentToggles",document.getElementById("pref_ct").checked);
-				} catch (e) {
-				}
-				
-				try {
-					prefs.setBoolPref("ajaxReplies",document.getElementById("pref_ar").checked);
-				} catch (e) {
-				}
-				
-				try {
-					prefs.setBoolPref("ajaxRestOfComment",document.getElementById("pref_aroc").checked);
 				} catch (e) {
 				}
 				

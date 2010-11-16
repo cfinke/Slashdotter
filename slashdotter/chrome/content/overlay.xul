@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="chrome://slashdotter/skin/style.css" type="text/css"?> 
-<overlay id="slashdotterOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-	<script type="application/x-javascript" src="chrome://slashdotter/content/overlay.js" />
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://slashdotter/content/overlay.js"></script>
+	<script type="application/x-javascript" src="chrome://slashdotter/content/jquery-1.4.4.min.js"></script>
 	<script type="application/x-javascript">
 		<![CDATA[
-
-			window.addEventListener("load", function () { SLASHDOTTER.onload(); }, false);
-			
+		
+		SLASHDOTTER.$ = jQuery.noConflict(true);
+		
+		addEventListener("load", SLASHDOTTER.onload, false);
+		
 		]]>
 	</script>
+	
+	<statusbarpanel id="slashdotter-modalert-panel" hidden="true">
+		<image id="slashdotter-modalert" tooltiptext="You have moderator points." onclick="content.document.location.href = 'http://slashdot.org/';" />
+	</statusbarpanel> 
 	<statusbar id="status-bar">
-		<statusbarpanel id="slashdotter-modalert-panel" hidden="true">
-			<image id="slashdotter-modalert" tooltiptext="You have moderator points." onclick="content.document.location.href = 'http://slashdot.org/';" />
-		</statusbarpanel> 
+		<statusbarpanel id="slashdotter-modalert-panel" />
 	</statusbar>
+	<toolbar id="addon-bar">
+		<statusbarpanel id="slashdotter-modalert-panel" />
+	</toolbar>
+	
 </overlay>
