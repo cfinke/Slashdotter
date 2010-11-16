@@ -1,5 +1,6 @@
 rm -rf `find ./ -name ".DS_Store"`
 rm -rf `find ./ -name "Thumbs.db"`
+
 rm slashdotter.xpi
 rm -rf .tmp_xpi_dir/
 
@@ -9,11 +10,6 @@ mkdir .tmp_xpi_dir/
 cp -r slashdotter/* .tmp_xpi_dir/
 rm -rf `find ./.tmp_xpi_dir/ -name ".git"`
 
-cd .tmp_xpi_dir/chrome/
-zip -rq ../slashdotter.jar *
-rm -rf *
-mv ../slashdotter.jar ./
-cd ../
 zip -rq ../slashdotter.xpi *
 cd ../
 

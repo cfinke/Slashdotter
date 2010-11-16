@@ -1,9 +1,7 @@
-content slashdotter   jar:chrome/slashdotter.jar!/content/ 
-content slashdotter   jar:chrome/slashdotter.jar!/content/ contentaccessible=yes
-skin    slashdotter   classic/1.0      jar:chrome/slashdotter.jar!/skin/
+content slashdotter   chrome/content/ 
+content slashdotter   chrome/content/ contentaccessible=yes
+skin    slashdotter   classic      chrome/skin/
 
 overlay chrome://browser/content/browser.xul              chrome://slashdotter/content/overlay.xul
-overlay chrome://navigator/content/navigator.xul          chrome://slashdotter/content/overlay.xul
 
 style chrome://browser/content/browser.xul chrome://slashdotter/skin/style.css
-style chrome://navigator/content/navigator.xul chrome://slashdotter/skin/style.css
