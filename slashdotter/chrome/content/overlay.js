@@ -234,6 +234,25 @@ var SLASHDOTTER = {
 	
 	// @done
 	quickReply : function (event) {
+		function openInNewTab(url){
+			var browser = window.gBrowser || window.parent.gBrowser;
+
+			var theTab = browser.addTab(url);
+
+			var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+
+			var loadInBackground = false;
+
+			try {
+				loadInBackground = prefs.getBoolPref("browser.tabs.loadBookmarksInBackground");
+			} catch (e) {
+			}
+
+			if (!loadInBackground){
+				browser.selectedTab = theTab;
+			}
+		}
+		
 		if (event.which == 2 || event.metaKey || event.ctrlKey) var inNewTab = true;
 		else inNewTab = false;
 		
@@ -383,22 +402,3 @@ var SLASHDOTTER = {
 		SLASHDOTTER.$(page).find("head").append('<style type="text/css"> #commentlisting li.comment li.comment { margin-left: 3em; } </style>');
 	}
 };
-
-function openInNewTab(url){
-	var browser = window.gBrowser || window.parent.gBrowser;
-	
-	var theTab = browser.addTab(url);
-	
-	var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
-	
-	var loadInBackground = false;
-	
-	try {
-		loadInBackground = prefs.getBoolPref("browser.tabs.loadBookmarksInBackground");
-	} catch (e) {
-	}
-	
-	if (!loadInBackground){
-		browser.selectedTab = theTab;
-	}
-}
