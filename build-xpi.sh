@@ -11,6 +11,6 @@ cp -r slashdotter/* .tmp_xpi_dir/
 rm -rf `find ./.tmp_xpi_dir/ -name ".git"`
 
 cd .tmp_xpi_dir/
-zip -rq ~/Desktop/slashdotter.xpi *
+zip -rq ~/Desktop/slashdotter-latest.xpi *
 cd ..
 rm -rf .tmp_xpi_dir/
