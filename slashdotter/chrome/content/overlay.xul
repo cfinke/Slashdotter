@@ -2,11 +2,8 @@
 <?xml-stylesheet href="chrome://slashdotter/skin/style.css" type="text/css"?> 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script type="application/x-javascript" src="chrome://slashdotter/content/overlay.js"></script>
-	<script type="application/x-javascript" src="chrome://slashdotter/content/jquery-1.4.4.min.js"></script>
 	<script type="application/x-javascript">
 		<![CDATA[
-		
-		SLASHDOTTER.$ = jQuery.noConflict(true);
 		
 		addEventListener("load", SLASHDOTTER.onload, false);
 		

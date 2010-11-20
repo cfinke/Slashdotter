@@ -57,7 +57,7 @@ var SLASHDOTTER = {
 		if (SLASHDOTTER.prefs.getBoolPref("showCCLinks") || SLASHDOTTER.prefs.getBoolPref("showMDLinks") || SLASHDOTTER.prefs.getBoolPref("showGCLinks")){
 			SLASHDOTTER.cacheLinks(page);
 		}
-				
+		
 		if (SLASHDOTTER.prefs.getBoolPref("enableCommentToggles")){
 			SLASHDOTTER.addCommentToggles(page);
 		}
@@ -124,9 +124,21 @@ var SLASHDOTTER = {
 	
 	// @done
 	cacheLinks : function (page) {
-		SLASHDOTTER.$(page).find("div.body  div[id^='text'] a[href]").each(function () {
-			var alink = this;
-			
+		var links = [];
+		
+		Array.forEach(page.getElementsByClassName("body"), function (el) {
+			if (el.nodeName == 'DIV') {
+				Array.forEach(el.getElementsByTagName("div"), function (div_el) {
+					if (div_el.getAttribute("id") && div_el.getAttribute("id").indexOf("text") === 0) {
+						Array.forEach(div_el.getElementsByTagName("a"), function (alink) {
+							links.push(alink);
+						});
+					}
+				});
+			}
+		});
+		
+		Array.forEach(links, function (alink) {
 			tmp = alink.href;
 		
 			if (tmp){
@@ -136,11 +148,11 @@ var SLASHDOTTER = {
 						googLink.setAttribute("href",'http://www.google.com/search?q=cache:' + tmp);
 						googLink.setAttribute("title","Google Cache Link");
 						googLink.appendChild(page.createTextNode("[GC]"));
-				
+
 						alink.parentNode.insertBefore(googLink, alink.nextSibling);					
 						alink.parentNode.insertBefore(page.createTextNode(" "), alink.nextSibling);
 					}
-				
+
 					if (SLASHDOTTER.prefs.getBoolPref("showMDLinks")){
 						var mdLink = page.createElement('a');
 						mdLink.setAttribute("href",'http://www.mirrordot.com/find-mirror.html?' + tmp);
@@ -150,10 +162,10 @@ var SLASHDOTTER = {
 						alink.parentNode.insertBefore(mdLink, alink.nextSibling);					
 						alink.parentNode.insertBefore(page.createTextNode(" "), alink.nextSibling);
 					}
-				
+
 					if (SLASHDOTTER.prefs.getBoolPref("showCCLinks")){
 						tmp = tmp.substr(7);
-				
+
 						if (tmp.indexOf('/')){
 							tmp2 = tmp.substr(0,tmp.indexOf('/'));
 							tmp3 = tmp.substr(tmp.indexOf('/'));
@@ -162,9 +174,9 @@ var SLASHDOTTER = {
 							tmp2 = tmp;
 							tmp3 = '';
 						}
-					
+
 						newlink = 'http://'+tmp2+'.nyud.net:8090'+tmp3;
-					
+
 						var ccLink = page.createElement('a');
 						ccLink.href = newlink;
 						ccLink.host += ".nyud.net:8080";
@@ -353,31 +365,64 @@ var SLASHDOTTER = {
 	
 	// @done
 	addCommentToggles : function (page) {
-		SLASHDOTTER.$(page).find("li.comment.contain div.commentSub").each(function () {
-			var thisComment = this;
-			
-			if (SLASHDOTTER.$(this).parents("li.comment:first").find("li.comment").length > 0) {
-				var thisNode = SLASHDOTTER.getNextReplyLink(thisComment);
+		var list1 = [];
 		
-				if (thisNode){
-					thisNode = thisNode.parentNode.parentNode.parentNode;
+		Array.forEach(page.getElementsByClassName("comment contain"), function (li) {
+			var id = li.getAttribute("id");
+			var new_id = id.replace("tree_", "comment_sub_");
 			
-					var toggleSpan = page.createElement("span");
-					toggleSpan.setAttribute("class","nbutton");
-					toggleSpan.innerHTML = '<p><b><a href="javascript:void(0);" onclick="for (var z in this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes){ if (this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].nodeName == \'UL\'){ if (this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display != \'none\') { this.innerHTML = \'Show Replies\'; this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display = \'none\'; } else { this.innerHTML = \'Hide Replies\'; this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display = \'\'; } } }">Hide Replies</a></b></p>';
+			list1.push(page.getElementById(new_id));
+		});
+		
+		var list2 = [];
+		
+		Array.forEach(list1, function (div) {
+			var p = div.parentNode;
 			
-					thisNode.parentNode.insertBefore(toggleSpan, thisNode);				
-					thisNode.parentNode.insertBefore(page.createTextNode(" "), thisNode);
-				}
+			while (p.getAttribute("class").split(" ").indexOf("comment") == -1 && p.nodeName != 'BODY') {
+				p = p.parentNode;
+			}
+			
+			if (p.nodeName == 'BODY') {
+				return;
+			}
+			
+			var comments = p.getElementsByClassName("comment");
+			
+			if (comments.length > 0) {
+				list2.push(SLASHDOTTER.getNextReplyLink(div));
+			}
+		});
+		
+		Array.forEach(list2, function (thisNode) {
+			if (thisNode) {
+				thisNode = thisNode.parentNode.parentNode.parentNode;
+		
+				var toggleSpan = page.createElement("span");
+				toggleSpan.setAttribute("class","nbutton");
+				toggleSpan.innerHTML = '<p><b><a href="javascript:void(0);" onclick="for (var z in this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes){ if (this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].nodeName == \'UL\'){ if (this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display != \'none\') { this.innerHTML = \'Show Replies\'; this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display = \'none\'; } else { this.innerHTML = \'Hide Replies\'; this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[z].style.display = \'\'; } } }">Hide Replies</a></b></p>';
+				
+				thisNode.parentNode.insertBefore(toggleSpan, thisNode);
+				thisNode.parentNode.insertBefore(page.createTextNode(" "), thisNode);
 			}
 		});
 	},
 	
 	// @done, except for ponies
 	applyStyle : function (page, style) {
-		SLASHDOTTER.$(page).find("link.data-skin[rel='stylesheet']").remove();
-		
 		var head = page.getElementsByTagName("head")[0];
+		
+		var links = [];
+		
+		Array.forEach(head.getElementsByClassName("data-skin"), function (link) {
+			if (link.nodeName == 'LINK') {
+				links.push(link);
+			}
+		});
+		
+		Array.forEach(links, function (link) {
+			link.parentNode.removeChild(link);
+		});
 		
 		if (style != 'main'){
 			var styleNode = page.createElement("link");
@@ -399,6 +444,12 @@ var SLASHDOTTER = {
 	
 	// @done
 	increasePadding : function(page){
-		SLASHDOTTER.$(page).find("head").append('<style type="text/css"> #commentlisting li.comment li.comment { margin-left: 3em; } </style>');
+		var head = page.getElementsByTagName("head")[0];
+		
+		var style = page.createElement("style");
+		style.setAttribute("type", "text/css");
+		style.innerHTML = '#commentlisting li.comment li.comment { margin-left: 3em; }';
+		
+		head.appendChild(style);
 	}
 };
