@@ -3,8 +3,8 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>{c4f1fdfb-49f5-4cb5-a4e5-3b857ca2ef95}</em:id>
 		<em:name>Slashdotter</em:name>
-		<em:version>2.2.2</em:version>
-		<em:description>Displays the items from your Live Bookmarks in a sidebar.</em:description>
+		<em:version>2.2.3</em:version>
+		<em:description>Adds features that ease the viewing and usage of Slashdot.org.</em:description>
 		<em:creator>Christopher Finke</em:creator>
 		<em:iconURL>chrome://slashdotter/skin/slashdotter.png</em:iconURL>
 		<em:homepageURL>http://www.chrisfinke.com/addons/slashdotter/</em:homepageURL>
